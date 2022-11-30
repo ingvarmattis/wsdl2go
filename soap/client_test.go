@@ -1,6 +1,7 @@
 package soap
 
 import (
+	"context"
 	"fmt"
 	"io"
 	"net/http"
@@ -109,7 +110,7 @@ func TestRoundTrip(t *testing.T) {
 		},
 	}
 	for i, tc := range cases {
-		err := tc.C.RoundTrip(tc.In, tc.Out)
+		err := tc.C.RoundTrip(context.Background(), tc.In, tc.Out)
 		if err != nil && !tc.Fail {
 			t.Errorf("test %d: %v", i, err)
 			continue
@@ -173,7 +174,7 @@ func TestRoundTripWithAction(t *testing.T) {
 		},
 	}
 	for i, tc := range cases {
-		err := tc.C.RoundTripWithAction(tc.Action, tc.In, tc.Out)
+		err := tc.C.RoundTripWithAction(context.Background(), tc.Action, tc.In, tc.Out)
 		if err != nil && !tc.Fail {
 			t.Errorf("test %d: %v", i, err)
 			continue
@@ -241,7 +242,7 @@ func TestRoundTripSoap12(t *testing.T) {
 		},
 	}
 	for i, tc := range cases {
-		err := tc.C.RoundTripSoap12(testAction, tc.In, tc.Out)
+		err := tc.C.RoundTripSoap12(context.Background(), testAction, tc.In, tc.Out)
 		if err != nil && !tc.Fail {
 			t.Errorf("test %d: %v", i, err)
 			continue
